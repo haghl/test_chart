@@ -36,16 +36,12 @@ const AnswerRadio: React.FC<IProps> = ({ ...rest }) => {
   ]
 
   return (
-    <RadioContainer orientation="vertical" fullWidth exclusive {...rest}>
+    <ToggleButtonGroup orientation="vertical" fullWidth exclusive {...rest}>
       {answerList.map((answer) => (
         <RadioButton key={key + answer.value} value={answer.value} label={answer.label} />
       ))}
-    </RadioContainer>
+    </ToggleButtonGroup>
   )
 }
-
-const RadioContainer = styled(ToggleButtonGroup)`
-  border-radius: 35px;
-`
 
 export default AnswerRadio

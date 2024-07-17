@@ -9,7 +9,8 @@
     "skipLibCheck": true,
     "paths": {
       "@/*": ["./src/*"],
-      "@api/*": ["./src/api/*"],
+      "@assets/*": ["./src/assets/*"],
+      "@apis/*": ["./src/apis/*"],
       "@components/*": ["./src/components/*"],
       "@pages/*": ["./src/pages/*"],
       "@router/*": ["./src/router/*"],

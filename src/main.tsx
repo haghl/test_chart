@@ -4,6 +4,7 @@ import ReactDOM from 'react-dom/client'
 import { RouterProvider } from 'react-router'
 
 import router from './router/router.tsx'
+import '@styles/index.css'
 
 const queryClient = new QueryClient({
   defaultOptions: {

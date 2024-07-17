@@ -29,6 +29,8 @@ const QuestionBox = styled.div`
 `
 const QuestionTitle = styled.p`
   margin-bottom: 27px;
+  font-weight: bold;
+  font-size: 22px;
 `
 
 export default Question
