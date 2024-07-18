@@ -34,6 +34,7 @@ const ChartComponent: React.FC = () => {
         backgroundColor: 'rgba(0, 128, 0, 0.2)',
         pointBackgroundColor: '#004d00',
         pointBorderColor: '#004d00',
+        borderWidth: 1,
         fill: false,
         tension: 0, // 각지게 설정
         borderSkipped: false, // 위아래 경계선을 없앱니다
@@ -55,9 +56,7 @@ const ChartComponent: React.FC = () => {
     scales: {
       x: {
         grid: {
-          color: '#004d00',
-          borderColor: '#004d00',
-          lineWidth: 2,
+          lineWidth: 0,
         },
         ticks: {
           display: false, // 기본 라벨 숨기기
@@ -65,8 +64,10 @@ const ChartComponent: React.FC = () => {
       },
       y: {
         grid: {
-          color: '#004d00',
-          borderColor: '#004d00',
+          lineWidth: 1,
+        },
+        border: {
+          display: false, // y축의 경계선 제거
         },
         offset: true,
         max: 40,
