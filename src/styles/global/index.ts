@@ -128,6 +128,7 @@ export const baseStyle = css`
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
+    box-sizing: border-box;
   }
   /* HTML5 display-role reset for older browsers */
   article,
@@ -147,6 +148,7 @@ export const baseStyle = css`
   body {
     font-family: 'Pretendard', sans-serif;
     line-height: 1;
+    white-space: pre-wrap;
   }
   ol,
   ul {

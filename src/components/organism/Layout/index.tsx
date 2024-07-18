@@ -10,6 +10,7 @@ const Layout: React.FC<IProps> = ({ children }) => {
 
 const Wrap = styled.div`
   width: 100%;
+  background: #fff;
 `
 
 export default Layout

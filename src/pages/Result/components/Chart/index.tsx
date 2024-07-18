@@ -1,62 +1,89 @@
 import styled from '@emotion/styled'
-import { CategoryScale, Chart as ChartJS, ChartOptions, Legend, LinearScale, LineElement, PointElement, Title, Chart } from 'chart.js'
-import React from 'react'
-import { Line } from 'react-chartjs-2'
 import 'chart.js/auto'
+import React, { useEffect, useRef } from 'react'
+import { Bar } from 'react-chartjs-2'
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend, Filler } from 'chart.js'
 
-const backgroundPlugin = {
-  id: 'customCanvasBackgroundColor',
-  beforeDraw: (chart: any) => {
-    const ctx = chart.ctx
-    const chartArea = chart.chartArea
-    const scales = chart.scales
-
-    // Define the background colors for each section
-    const colors = ['rgba(255, 0, 0, 0.2)', 'rgba(0, 255, 0, 0.2)', 'rgba(0, 0, 255, 0.2)']
-    const boundaries = [0, 2, 4, 6] // Define the boundaries for each section
-
-    // Apply the background colors
-    for (let i = 0; i < colors.length; i++) {
-      ctx.fillStyle = colors[i]
-      const startX = i === 0 ? chartArea.left : scales.x.getPixelForValue(boundaries[i])
-      const endX = i === colors.length - 1 ? chartArea.right : scales.x.getPixelForValue(boundaries[i + 1])
-      ctx.fillRect(startX, chartArea.top, endX - startX, chartArea.bottom - chartArea.top)
-    }
-  },
-}
-
-// Chart.js에 필요한 컴포넌트 등록
-Chart.register(backgroundPlugin)
-
+// 커스텀 플러그인 작성
+ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend, Filler)
 const ChartComponent: React.FC = () => {
-  const data = {
-    labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+  const backgroundColorPlugin = {
+    id: 'backgroundColorPlugin',
+    beforeDraw: (chart) => {
+      const {
+        ctx,
+        chartArea: { top, bottom, left, right },
+        scales: { y },
+      } = chart
+      ctx.save()
+      const min = y.getPixelForValue(15)
+      const max = y.getPixelForValue(30)
+      ctx.fillStyle = 'rgba(0, 128, 0, 0.2)'
+      ctx.fillRect(left, min, right - left, max - min)
+      ctx.restore()
+    },
+  }
+
+  const data: any = {
+    labels: ['5 [관찰형]', '6 [충성형]', '7 [낙천형]', '4 [예술형]', '3 [성취형]', '2 [조력형]', '1 [개혁형]', '9 [중재형]', '8 [도전형]'],
     datasets: [
       {
-        label: 'My Dataset',
-        data: [65, 59, 80, 81, 56, 55, 40],
-        borderColor: 'rgba(75, 192, 192, 1)',
-        borderWidth: 2,
+        type: 'line',
+        data: [20, 25, 20, 15, 13, 25, 30, 20, 10],
+        borderColor: '#004d00',
+        backgroundColor: 'rgba(0, 128, 0, 0.2)',
+        pointBackgroundColor: '#004d00',
+        pointBorderColor: '#004d00',
         fill: false,
-        pointBackgroundColor: 'rgba(75, 192, 192, 1)',
-        pointBorderColor: 'rgba(75, 192, 192, 1)',
-        pointBorderWidth: 2,
-        pointRadius: 5,
+        tension: 0, // 각지게 설정
+        borderSkipped: false, // 위아래 경계선을 없앱니다
       },
     ],
   }
 
   const options = {
+    responsive: true,
+    plugins: {
+      legend: {
+        display: false,
+      },
+      title: {
+        display: false,
+      },
+      backgroundColorPlugin: {},
+    },
     scales: {
+      x: {
+        grid: {
+          color: '#004d00',
+          borderColor: '#004d00',
+          lineWidth: 2,
+        },
+        ticks: {
+          display: false, // 기본 라벨 숨기기
+        },
+      },
       y: {
-        beginAtZero: true,
+        grid: {
+          color: '#004d00',
+          borderColor: '#004d00',
+        },
+        offset: true,
+        max: 40,
+        min: 0,
+        ticks: {
+          color: '#004d00',
+          font: {
+            size: 12,
+          },
+        },
       },
     },
   }
 
   return (
     <ChartContainer>
-      <Line data={data} options={options} />
+      <Bar data={data} options={options} plugins={[backgroundColorPlugin]} />
     </ChartContainer>
   )
 }
@@ -65,8 +92,8 @@ const ChartContainer = styled.div`
   margin: 0 auto;
   padding: 20px;
   background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-top: 4px solid #004c2f;
+  border-bottom: 4px solid #004c2f;
 `
 
 export default ChartComponent
