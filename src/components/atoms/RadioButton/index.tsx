@@ -12,7 +12,7 @@ const RadioButton: React.FC<IProps> = ({ label, ...rest }) => {
 const Radio = styled(ToggleButton)`
   padding: 15px 25px;
   justify-content: flex-start;
-  border-radius: 35px;
+  border-radius: 15px;
   border-color: #004c2f;
   font-size: 18px;
   color: #004c2f;

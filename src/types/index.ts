@@ -1,4 +1,5 @@
 export interface IQuestion {
+  index: number
   type: number
   value: number | null
   question: string

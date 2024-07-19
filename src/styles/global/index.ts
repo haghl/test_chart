@@ -148,6 +148,9 @@ export const baseStyle = css`
   body {
     font-family: 'Pretendard', sans-serif;
     line-height: 1;
+  }
+  div,
+  p {
     white-space: pre-wrap;
   }
   ol,
