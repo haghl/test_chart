@@ -1,15 +1,17 @@
 import styled from '@emotion/styled'
+import { BarElement, CategoryScale, Chart as ChartJS, ChartOptions, Filler, Legend, LinearScale, LineElement, PointElement, Title, Tooltip } from 'chart.js'
 import 'chart.js/auto'
-import React, { useEffect, useRef } from 'react'
+import React from 'react'
 import { Bar } from 'react-chartjs-2'
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend, Filler } from 'chart.js'
 
 // 커스텀 플러그인 작성
 ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend, Filler)
 const ChartComponent: React.FC = () => {
+  const typeList = ['5 [관찰형]', '6 [충성형]', '7 [낙천형]', '4 [예술형]', '3 [성취형]', '2 [조력형]', '1 [개혁형]', '9 [중재형]', '8 [도전형]']
+
   const backgroundColorPlugin = {
     id: 'backgroundColorPlugin',
-    beforeDraw: (chart) => {
+    beforeDraw: (chart: any) => {
       const {
         ctx,
         chartArea: { top, bottom, left, right },
@@ -18,22 +20,22 @@ const ChartComponent: React.FC = () => {
       ctx.save()
       const min = y.getPixelForValue(15)
       const max = y.getPixelForValue(30)
-      ctx.fillStyle = 'rgba(0, 128, 0, 0.2)'
+      ctx.fillStyle = '#E4EFE4'
       ctx.fillRect(left, min, right - left, max - min)
       ctx.restore()
     },
   }
 
   const data: any = {
-    labels: ['5 [관찰형]', '6 [충성형]', '7 [낙천형]', '4 [예술형]', '3 [성취형]', '2 [조력형]', '1 [개혁형]', '9 [중재형]', '8 [도전형]'],
+    labels: typeList,
     datasets: [
       {
         type: 'line',
         data: [20, 25, 20, 15, 13, 25, 30, 20, 10],
-        borderColor: '#004d00',
-        backgroundColor: 'rgba(0, 128, 0, 0.2)',
-        pointBackgroundColor: '#004d00',
-        pointBorderColor: '#004d00',
+        borderColor: '#004C2F',
+        backgroundColor: '#004C2F',
+        pointBackgroundColor: '#004C2F',
+        pointBorderColor: '#004C2F',
         borderWidth: 1,
         fill: false,
         tension: 0, // 각지게 설정
@@ -42,8 +44,9 @@ const ChartComponent: React.FC = () => {
     ],
   }
 
-  const options = {
+  const options: ChartOptions<'bar'> = {
     responsive: true,
+    maintainAspectRatio: false,
     plugins: {
       legend: {
         display: false,
@@ -51,50 +54,200 @@ const ChartComponent: React.FC = () => {
       title: {
         display: false,
       },
-      backgroundColorPlugin: {},
     },
     scales: {
       x: {
         grid: {
-          lineWidth: 0,
+          color: '#004C2F',
+          lineWidth: (context) => {
+            if (context.index >= 0 && context.index <= 8) {
+              return 2
+            }
+            return
+          },
         },
         ticks: {
           display: false, // 기본 라벨 숨기기
         },
+        border: {
+          width: 0,
+        },
       },
       y: {
         grid: {
-          lineWidth: 1,
+          color: '#004C2F',
+          lineWidth: (context) => {
+            if (context.tick.value !== 45 && context.tick.value !== 0) {
+              return 0.5
+            }
+            return 0
+          },
         },
-        border: {
-          display: false, // y축의 경계선 제거
-        },
-        offset: true,
-        max: 40,
+        max: 45,
         min: 0,
         ticks: {
-          color: '#004d00',
+          color: '#004C2F',
           font: {
             size: 12,
           },
+          callback: (value) => {
+            if (value === 0 || value === 45) {
+              return ''
+            }
+            return value
+          },
         },
+      },
+    },
+    layout: {
+      padding: {
+        left: 0,
+        right: 0,
+        top: 0,
+        bottom: 0,
       },
     },
   }
 
   return (
-    <ChartContainer>
-      <Bar data={data} options={options} plugins={[backgroundColorPlugin]} />
-    </ChartContainer>
+    <ChartWrap>
+      <ChartTop>
+        <ChartLeft>
+          <ChartLeftP>높음</ChartLeftP>
+          <ChartLeftP>보통</ChartLeftP>
+          <ChartLeftP>낮음</ChartLeftP>
+        </ChartLeft>
+
+        <ChartContainer>
+          <Bar data={data} options={options} plugins={[backgroundColorPlugin]} />
+        </ChartContainer>
+      </ChartTop>
+
+      <ChartBottom>
+        <ChartBottomItems>
+          <div>점수</div>
+          <ChartBottomItem>
+            {typeList.map((type) => {
+              return <ChartBottomDiv key={`score_${type}`}></ChartBottomDiv>
+            })}
+          </ChartBottomItem>
+        </ChartBottomItems>
+        <ChartBottomItems>
+          <div>성격유형</div>
+          <ChartBottomItem>
+            {typeList.map((type) => {
+              return <ChartBottomDiv key={`name_${type}`}>{type}</ChartBottomDiv>
+            })}
+          </ChartBottomItem>
+        </ChartBottomItems>
+        <ChartBottomItems>
+          <div>힘의 중심</div>
+          <ChartBottomDiv>머리 [탑]</ChartBottomDiv>
+          <ChartBottomDiv>가슴 [미들]</ChartBottomDiv>
+          <ChartBottomDiv>배 [베이스]</ChartBottomDiv>
+        </ChartBottomItems>
+      </ChartBottom>
+    </ChartWrap>
   )
 }
 
-const ChartContainer = styled.div`
+const ChartWrap = styled.div`
   margin: 0 auto;
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
   background-color: #fff;
   border-top: 4px solid #004c2f;
   border-bottom: 4px solid #004c2f;
+`
+const ChartContainer = styled.div`
+  flex: 1;
+  height: 445px;
+  @media (max-width: 420px) {
+    height: 215px;
+  }
+`
+const ChartTop = styled.div`
+  flex: 1;
+  display: flex;
+  height: 445px;
+  @media (max-width: 420px) {
+    height: 215px;
+  }
+`
+const ChartLeft = styled.div`
+  width: 100px;
+  height: 445px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  & > p ~ p {
+    border-top: 1px solid #004c2f;
+  }
+
+  @media (max-width: 420px) {
+    width: 32px;
+    height: 215px;
+  }
+`
+
+const ChartLeftP = styled.p`
+  flex: 1;
+  display: flex;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 500;
+
+  @media (max-width: 420px) {
+    font-size: 10px;
+  }
+`
+const ChartBottom = styled.div`
+  position: relative;
+  top: -2px;
+  font-weight: 500;
+  font-size: 16px;
+
+  @media (max-width: 420px) {
+    font-size: 10px;
+  }
+`
+const ChartBottomItems = styled.div`
+  display: flex;
+  height: 60px;
+  padding-right: 6px;
+  border-top: 1px solid #004c2f;
+  & > div:first-of-type {
+    width: 126.5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @media (max-width: 420px) {
+      width: 58.5px;
+      min-width: 56px;
+    }
+  }
+  & div ~ div {
+    border-left: 2px solid #004c2f;
+    @media (max-width: 420px) {
+      border-width: 1px;
+    }
+  }
+
+  @media (max-width: 420px) {
+    height: 20px;
+  }
+`
+const ChartBottomItem = styled.div`
+  display: flex;
+  flex: 1;
+`
+const ChartBottomDiv = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
 `
 
 export default ChartComponent

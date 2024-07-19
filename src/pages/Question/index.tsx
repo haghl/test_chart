@@ -2,38 +2,53 @@ import { Question } from '@/components/organism'
 import { Header } from '@/components/organism'
 import styled from '@emotion/styled'
 import questions from './data'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { IQuestion } from '@/types'
+import { useNavigate } from 'react-router-dom'
 
 const QuestionPage = () => {
-  const [currentPage, setCurrentPage] = useState(1)
+  const navigate = useNavigate()
+  const [currentPage, setCurrentPage] = useState(0)
   const [questionList, setQuestionList] = useState(questions)
-  // 페이지당 아이템 수
+  const [pagedQuestions, setPagedQuestions] = useState<IQuestion[][]>([])
+
   const itemsPerPage = 10
+  // 2차원 배열로 분리된 데이터
 
-  // 현재 페이지에 해당하는 데이터 계산
-  const indexOfLastItem = currentPage * itemsPerPage
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage
-  let currentItems = questionList.slice(indexOfFirstItem, indexOfLastItem)
+  // useEffect를 사용하여 데이터를 미리 2차원 배열로 분리
+  useEffect(() => {
+    const totalPages = Math.ceil(questions.length / itemsPerPage)
+    const newPagedQuestions: IQuestion[][] = []
 
-  // 마지막 페이지는 11개의 아이템 표시
-  if (currentPage === Math.ceil(questionList.length / itemsPerPage)) {
-    currentItems = questionList.slice(indexOfFirstItem, questionList.length)
+    for (let i = 0; i < totalPages; i++) {
+      const start = i * itemsPerPage
+      const end = start + itemsPerPage
+      newPagedQuestions.push(questions.slice(start, end))
+    }
+
+    // 마지막 페이지가 11개가 되도록 수정
+    if (newPagedQuestions[totalPages - 1].length === 1) {
+      newPagedQuestions[totalPages - 2] = newPagedQuestions[totalPages - 2].concat(newPagedQuestions[totalPages - 1])
+      newPagedQuestions.pop()
+    }
+
+    setPagedQuestions(newPagedQuestions)
+  }, [])
+
+  // 다음 페이지로 이동 핸들러
+  const handleNext = () => {
+    if (currentPage < pagedQuestions.length - 1) {
+      setCurrentPage(currentPage + 1)
+    } else {
+      navigate('/result')
+    }
   }
-
-  // 페이지 번호 배열 계산
-  const pageNumbers = []
-  for (let i = 1; i <= Math.ceil(questionList.length / itemsPerPage); i++) {
-    pageNumbers.push(i)
-  }
-
-  // 페이지 변경 핸들러
-  const paginate = (pageNumber: number) => setCurrentPage(pageNumber)
 
   return (
     <>
       <Header />
       <QuestionBox>
-        {currentItems.map((question, index) => {
+        {pagedQuestions[currentPage]?.map((question) => {
           return (
             <Question
               key={question.question}
@@ -42,13 +57,13 @@ const QuestionPage = () => {
               value={question.value}
               onChange={(value) => {
                 const arr = [...questionList]
-                arr[index].value = value
+                arr[question.index - 1].value = value
                 setQuestionList(arr)
               }}
             />
           )
         })}
-        <NextButton onClick={() => paginate(currentPage + 1)}>Next</NextButton>
+        <NextButton onClick={() => handleNext()}>{currentPage < pagedQuestions.length - 1 ? 'Next' : '결과보기'}</NextButton>
       </QuestionBox>
     </>
   )
@@ -73,6 +88,7 @@ const NextButton = styled.div`
   font-weight: 900;
   font-size: 18px;
   color: #fff;
+  cursor: pointer;
 `
 
 export default QuestionPage

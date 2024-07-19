@@ -1,5 +1,5 @@
-import React from 'react'
 import styled from '@emotion/styled'
+import React from 'react'
 
 const Description: React.FC = () => {
   return (
@@ -32,6 +32,13 @@ const DescriptionWrap = styled.div`
   margin-top: 42px;
   display: flex;
   justify-content: space-between;
+  @media (max-width: 420px) {
+    width: 90%;
+    margin: 33px auto 0;
+    flex-direction: column;
+    justify-content: center;
+    row-gap: 40px;
+  }
 `
 
 const DescriptionTitle = styled.p`
@@ -39,11 +46,19 @@ const DescriptionTitle = styled.p`
   font-size: 18px;
   font-weight: bold;
   color: #004c2f;
+  @media (max-width: 420px) {
+    margin-bottom: 10px;
+    font-size: 12px;
+  }
 `
 const DescriptionText = styled.p`
   line-height: 18px;
   font-weight: 500;
   font-size: 14px;
+  @media (max-width: 420px) {
+    line-height: 14px;
+    font-size: 10px;
+  }
 `
 
 export default Description

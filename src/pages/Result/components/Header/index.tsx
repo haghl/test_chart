@@ -33,6 +33,9 @@ const HeaderWrap = styled.div`
   margin-top: 75px;
   display: flex;
   flex-direction: column;
+  @media (max-width: 420px) {
+    margin-top: 45px;
+  }
 `
 const ResultType = styled.p`
   width: 1120px;
@@ -42,17 +45,31 @@ const ResultType = styled.p`
   color: #004c2f;
   font-weight: bold;
   font-size: 163px;
+
+  @media (max-width: 420px) {
+    width: 100%;
+    padding-left: 20px;
+    font-size: 50px;
+    top: 8px;
+  }
 `
 const HeaderContainer = styled.div`
   padding-top: 90px;
   padding-bottom: 100px;
-
   position: relative;
   background-color: #004c2f;
+
+  @media (max-width: 420px) {
+    padding-top: 35px;
+    padding-bottom: 30px;
+  }
 `
 const TypeTextBox = styled.div`
   max-width: 1120px;
   margin: 0 auto;
+  @media (max-width: 420px) {
+    padding-left: 20px;
+  }
 `
 const TypeTitleBox = styled.div`
   margin-bottom: 50px;
@@ -60,18 +77,32 @@ const TypeTitleBox = styled.div`
   align-items: center;
   column-gap: 33px;
   color: #fff;
+  @media (max-width: 420px) {
+    margin-bottom: 15px;
+    column-gap: 13px;
+  }
 `
 const TypeTitle = styled.p`
   font-weight: bold;
   font-size: 70px;
+  @media (max-width: 420px) {
+    font-size: 18px;
+  }
 `
 const TypeSubTitle = styled.p`
   font-size: 35px;
+  @media (max-width: 420px) {
+    font-size: 11px;
+  }
 `
 const TypeDescription = styled.p`
   line-height: 30px;
   font-size: 22px;
   color: #fff;
+  @media (max-width: 420px) {
+    line-height: 12px;
+    font-size: 8px;
+  }
 `
 const CharacterImage = styled.img`
   width: 500px;
@@ -80,6 +111,9 @@ const CharacterImage = styled.img`
   right: 0;
   @media (max-width: 1000px) {
     width: 350px;
+  }
+  @media (max-width: 420px) {
+    width: 180px;
   }
 `
 

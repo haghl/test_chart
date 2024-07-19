@@ -27,16 +27,22 @@ const TypeBox: React.FC<IProps> = ({ data, active, onClick }) => {
 const TypeWrap = styled.div`
   flex: 1 1 calc(33.333% - 40px);
   cursor: pointer;
+  @media (max-width: 420px) {
+    flex-basis: calc(33.333% - 10px);
+  }
 `
 const TypeTop = styled.p<{ active: boolean }>`
   text-align: center;
   font-size: 37px;
   color: ${(prop) => (prop.active ? '#004C2F' : '#B7B7B7')};
+
+  @media (max-width: 420px) {
+    font-size: 13px;
+  }
 `
 const TypeMid = styled.div<{ active: boolean }>`
   height: 300px;
   margin-top: 75px;
-  padding: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -44,6 +50,11 @@ const TypeMid = styled.div<{ active: boolean }>`
   background: ${(prop) => (prop.active ? '#004C2F' : '#F7F7F7')};
   color: ${(prop) => (prop.active ? '#fff ' : '#B7B7B7')};
   border-radius: 15px;
+
+  @media (max-width: 420px) {
+    margin-top: 25px;
+    height: 105px;
+  }
 `
 const TypeBottom = styled.div<{ active: boolean }>`
   height: 400px;
@@ -56,11 +67,21 @@ const TypeBottom = styled.div<{ active: boolean }>`
   background: ${(prop) => (prop.active ? '#E4EFE4' : '#F7F7F7')};
   color: ${(prop) => (prop.active ? '#000 ' : '#B7B7B7')};
   border-radius: 15px;
+
+  @media (max-width: 420px) {
+    height: 150px;
+    padding: 25px 10px;
+  }
 `
 const TypeText = styled.p`
   line-height: 33px;
   font-weight: 500;
   font-size: 22px;
+
+  @media (max-width: 420px) {
+    line-height: 13px;
+    font-size: 10px;
+  }
 `
 
 export default TypeBox
