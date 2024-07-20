@@ -50,6 +50,10 @@ const TypeMid = styled.div<{ active: boolean }>`
   background: ${(prop) => (prop.active ? '#004C2F' : '#F7F7F7')};
   color: ${(prop) => (prop.active ? '#fff ' : '#B7B7B7')};
   border-radius: 15px;
+  @media (max-width: 1000px) {
+    height: 250px;
+    margin-top: 45px;
+  }
 
   @media (max-width: 420px) {
     margin-top: 25px;
@@ -67,6 +71,10 @@ const TypeBottom = styled.div<{ active: boolean }>`
   background: ${(prop) => (prop.active ? '#E4EFE4' : '#F7F7F7')};
   color: ${(prop) => (prop.active ? '#000 ' : '#B7B7B7')};
   border-radius: 15px;
+
+  @media (max-width: 1000px) {
+    padding: 30px 20px;
+  }
 
   @media (max-width: 420px) {
     height: 150px;

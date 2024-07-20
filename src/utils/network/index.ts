@@ -2,8 +2,7 @@ import axios, { AxiosResponse } from 'axios'
 import { RequestParams } from './type'
 
 export const client = axios.create({
-  // baseURL: 'http://localhost:3000',
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: 'https://haghl.com/api',
 })
 
 client.interceptors.request.use(async (config) => {

@@ -28,9 +28,14 @@ const QuestionBox = styled.div`
   width: 100%;
 `
 const QuestionTitle = styled.p`
-  margin-bottom: 27px;
+  margin-bottom: 30px;
   font-weight: bold;
   font-size: 22px;
+
+  @media (max-width: 1000px) {
+    margin-bottom: 20px;
+    font-size: 18px;
+  }
 `
 
 export default Question

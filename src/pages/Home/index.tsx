@@ -39,6 +39,7 @@ const Main = styled.div`
   flex-direction: column;
   @media (max-width: 1000px) {
     width: 100%;
+    padding: 0 15px;
   }
 `
 const InputBox = styled.div`

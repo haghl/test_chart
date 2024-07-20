@@ -21,6 +21,11 @@ const Radio = styled(ToggleButton)`
     border-color: #004c2f;
     background-color: #e4efe4;
   }
+
+  @media (max-width: 1000px) {
+    padding: 10px 15px;
+    font-size: 12px;
+  }
 `
 
 export default RadioButton

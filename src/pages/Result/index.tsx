@@ -57,6 +57,11 @@ const Body = styled.div`
   margin: 125px auto 0;
   padding-bottom: 100px;
 
+  @media (max-width: 1000px) {
+    margin-top: 40px;
+    padding: 0 15px 50px;
+  }
+
   @media (max-width: 420px) {
     margin-top: 40px;
   }
@@ -64,6 +69,9 @@ const Body = styled.div`
 const Pyramid = styled.img`
   width: 100%;
   margin-top: 115px;
+  @media (max-width: 1000px) {
+    margin-top: 70px;
+  }
   @media (max-width: 420px) {
     width: 90%;
     margin: 55px auto 0;
@@ -77,6 +85,10 @@ const TypeWrap = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 90px 20px;
+
+  @media (max-width: 1000px) {
+    row-gap: 50px;
+  }
   @media (max-width: 420px) {
     gap: 30px 10px;
   }

@@ -76,6 +76,11 @@ const QuestionBox = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 60px;
+  @media (max-width: 1000px) {
+    margin: 30px auto 100px;
+    padding: 0 15px;
+    row-gap: 25px;
+  }
 `
 const NextButton = styled.div`
   width: 155px;
@@ -89,6 +94,12 @@ const NextButton = styled.div`
   font-size: 18px;
   color: #fff;
   cursor: pointer;
+  @media (max-width: 1000px) {
+    width: 100px;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 14px;
+  }
 `
 
 export default QuestionPage
