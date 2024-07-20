@@ -1,4 +1,3 @@
-import HeaderImage from '@assets/image/header.png'
 import styled from '@emotion/styled'
 import React from 'react'
 
