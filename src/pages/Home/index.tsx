@@ -37,6 +37,9 @@ const Main = styled.div`
   margin: 65px auto 0;
   display: flex;
   flex-direction: column;
+  @media (max-width: 1000px) {
+    width: 100%;
+  }
 `
 const InputBox = styled.div`
   display: flex;
