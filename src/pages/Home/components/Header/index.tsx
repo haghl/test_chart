@@ -22,7 +22,7 @@ const Header = () => {
 }
 const HeaderWrap = styled.div`
   height: 330px;
-  margin-top: 130px;
+  /* margin-top: 50px; */
   display: flex;
   align-items: center;
 `

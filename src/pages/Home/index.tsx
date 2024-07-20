@@ -2,12 +2,16 @@ import { Input } from '@/components/atoms'
 import styled from '@emotion/styled'
 import { useNavigate } from 'react-router-dom'
 import Header from './components/Header'
+import { postData } from '@/apis/question'
 
 const HomePage = () => {
   const navigate = useNavigate()
-  const onClick = () => {
+
+  const onClick = async () => {
+    postData({ name: '원동규', age: 20, phoneNumber: '010-9404-5037' })
     navigate('/question')
   }
+
   return (
     <div>
       <Header />
