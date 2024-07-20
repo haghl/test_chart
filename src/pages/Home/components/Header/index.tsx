@@ -4,9 +4,9 @@ const Header = () => {
   return (
     <HeaderWrap>
       <HeaderLeft>
-        <BigText>KMPT</BigText>
+        <BigText>Analysis of Niche</BigText>
         <SubDiv>
-          <SubText>Profile Psychology Test</SubText>
+          <SubText>Propensity Test</SubText>
           <Flex>
             <Cir />
             <Line color="#fff" />
@@ -38,7 +38,6 @@ const HeaderLeft = styled.div`
   color: #fff;
 `
 const BigText = styled.p`
-  letter-spacing: 25px;
   font-weight: bold;
   font-size: 70px;
 `

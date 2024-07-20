@@ -3,9 +3,13 @@ import styled from '@emotion/styled'
 import { useNavigate } from 'react-router-dom'
 import Header from './components/Header'
 import { postData } from '@/apis/question'
+import { useState } from 'react'
 
 const HomePage = () => {
   const navigate = useNavigate()
+  const [name, setName] = useState<string>('')
+  const [age, setAge] = useState<string>('')
+  const [phone, setPhone] = useState<string>('')
 
   const onClick = async () => {
     postData({ name: '원동규', age: 20, phoneNumber: '010-9404-5037' })
@@ -17,9 +21,9 @@ const HomePage = () => {
       <Header />
       <Main>
         <InputBox>
-          <Input htmlForId="name" label="이름" width={320} />
-          <Input htmlForId="age" label="나이" width={320} />
-          <Input htmlForId="phone" label="연락처" width={320} />
+          <Input htmlForId="name" label="Name" width={320} value={name} onChange={(e) => setName(e.target.value)} />
+          <Input htmlForId="age" label="Age" width={320} value={age} onChange={(e) => setAge(e.target.value)} />
+          <Input htmlForId="phone" label="Phone" width={320} value={phone} onChange={(e) => setPhone(e.target.value)} />
         </InputBox>
 
         <Button onClick={onClick}>START</Button>

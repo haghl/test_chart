@@ -4,26 +4,26 @@ import styled from '@emotion/styled'
 import questions from './data'
 import { useEffect, useState } from 'react'
 import { IQuestion } from '@/types'
-import { useNavigate } from 'react-router-dom'
+import { useLocation, useNavigate } from 'react-router-dom'
 
 const QuestionPage = () => {
+  const location = useLocation()
   const navigate = useNavigate()
-  const [currentPage, setCurrentPage] = useState(0)
-  const [questionList, setQuestionList] = useState(questions)
+  const [questionList, setQuestionList] = useState<IQuestion[]>(questions)
   const [pagedQuestions, setPagedQuestions] = useState<IQuestion[][]>([])
 
+  const params = new URLSearchParams(location.search)
+  const currentPage = parseInt(params.get('page') || '1', 10) - 1
   const itemsPerPage = 10
-  // 2차원 배열로 분리된 데이터
 
-  // useEffect를 사용하여 데이터를 미리 2차원 배열로 분리
   useEffect(() => {
-    const totalPages = Math.ceil(questions.length / itemsPerPage)
+    const totalPages = Math.ceil(questionList.length / itemsPerPage)
     const newPagedQuestions: IQuestion[][] = []
 
     for (let i = 0; i < totalPages; i++) {
       const start = i * itemsPerPage
       const end = start + itemsPerPage
-      newPagedQuestions.push(questions.slice(start, end))
+      newPagedQuestions.push(questionList.slice(start, end))
     }
 
     // 마지막 페이지가 11개가 되도록 수정
@@ -35,10 +35,10 @@ const QuestionPage = () => {
     setPagedQuestions(newPagedQuestions)
   }, [])
 
-  // 다음 페이지로 이동 핸들러
   const handleNext = () => {
     if (currentPage < pagedQuestions.length - 1) {
-      setCurrentPage(currentPage + 1)
+      navigate(`/question?page=${currentPage + 2}`)
+      window.scrollTo(0, 0)
     } else {
       navigate('/result')
     }
