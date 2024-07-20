@@ -18,3 +18,9 @@ export interface IAnswer {
   character: string // 특징
   recomend: string // 추천
 }
+export interface IKmptMember {
+  id?: number
+  name: string
+  age: number
+  phoneNumber: string
+}

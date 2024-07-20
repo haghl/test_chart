@@ -1,22 +1,18 @@
+import { IKmptMember } from '@/types'
 import request from '@/utils/network'
 
-interface IKmptMember {
-  id?: number
-  name: string
-  age: number
-  phoneNumber: string
-}
+export const Kmpt = {
+  createMember: async (requestData: IKmptMember) => {
+    try {
+      const { data } = await request<IKmptMember, IKmptMember>({
+        method: 'post',
+        url: `/kmpt/member`,
+        requestBody: requestData,
+      })
 
-export const postData = async (requestData: IKmptMember) => {
-  try {
-    const { data } = await request<IKmptMember, IKmptMember>({
-      method: 'post',
-      url: `/kmpt/member`,
-      requestBody: requestData,
-    })
-
-    return data
-  } catch (error) {
-    throw error
-  }
+      return data
+    } catch (error) {
+      throw error
+    }
+  },
 }

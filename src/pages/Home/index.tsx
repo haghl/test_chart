@@ -1,32 +1,96 @@
 import { Input } from '@/components/atoms'
 import styled from '@emotion/styled'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import Header from './components/Header'
-import { postData } from '@/apis/question'
-import { useState } from 'react'
+import { useMutation } from '@tanstack/react-query'
+import { Kmpt } from '@/apis/question'
+import { IKmptMember } from '@/types'
+
+interface ErrorData {
+  name: string
+  age: string
+  phone: string
+}
 
 const HomePage = () => {
   const navigate = useNavigate()
   const [name, setName] = useState<string>('')
   const [age, setAge] = useState<string>('')
-  const [phone, setPhone] = useState<string>('')
+  const [phoneNumber, setPhoneNumber] = useState<string>('')
+  const [errors, setErrors] = useState<Partial<ErrorData>>({})
+  const { mutate } = useMutation({
+    mutationFn: (request: IKmptMember) => {
+      return Kmpt.createMember(request)
+    },
+    onSuccess: (response) => {
+      sessionStorage.setItem('memberId', response?.id?.toString() || '')
+      navigate('/question')
+    },
+    onError: (e: any) => {
+      console.log('message:', e.message)
+    },
+  })
 
-  const onClick = async () => {
-    postData({ name: '원동규', age: 20, phoneNumber: '010-9404-5037' })
-    navigate('/question')
+  const validate = () => {
+    const newErrors: Partial<ErrorData> = {}
+
+    if (!name) {
+      newErrors.name = '이름을 입력해주세요.'
+    }
+
+    if (!age) {
+      newErrors.age = '나이를 입력해주세요.'
+    } else if (!/^\d+$/.test(age) || Number(age) < 0 || Number(age) > 120) {
+      newErrors.age = '0보다 커야합니다.'
+    }
+
+    if (!phoneNumber) {
+      newErrors.phone = '핸드폰번호를 입력해주세요.'
+    } else if (!/^\d{10,11}$/.test(phoneNumber)) {
+      newErrors.phone = 'Phone number must be 10-11 digits long'
+    }
+    console.log('newErrors', newErrors)
+
+    setErrors(newErrors)
+
+    return Object.keys(newErrors).length === 0
+  }
+
+  const formatPhoneNumber = (phone: string) => {
+    if (phone.length === 10) {
+      return phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3')
+    } else if (phone.length === 11) {
+      return phone.replace(/(\d{3})(\d{4})(\d{4})/, '$1-$2-$3')
+    }
+    return phone
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    const isValidation = validate()
+    e.preventDefault()
+    if (isValidation) {
+      const formattedData = { name, age: Number(age), phoneNumber: formatPhoneNumber(phoneNumber) }
+      mutate(formattedData)
+      // Do something with the formatted form data
+    } else {
+      console.log('Form data is invalid:', errors)
+    }
   }
 
   return (
     <div>
       <Header />
       <Main>
-        <InputBox>
-          <Input htmlForId="name" label="Name" width={320} value={name} onChange={(e) => setName(e.target.value)} />
-          <Input htmlForId="age" label="Age" width={320} value={age} onChange={(e) => setAge(e.target.value)} />
-          <Input htmlForId="phone" label="Phone" width={320} value={phone} onChange={(e) => setPhone(e.target.value)} />
-        </InputBox>
+        <form onSubmit={handleSubmit}>
+          <InputBox>
+            <Input htmlForId="name" style={{ borderColor: errors.name ? 'red' : '#004C2F' }} label="Name" width={320} value={name} onChange={(e) => setName(e.target.value)} />
+            <Input htmlForId="age" style={{ borderColor: errors.name ? 'red' : '#004C2F' }} label="Age" width={320} value={age} onChange={(e) => setAge(e.target.value)} />
+            <Input htmlForId="phone" style={{ borderColor: errors.name ? 'red' : '#004C2F' }} label="Phone" width={320} value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
+          </InputBox>
 
-        <Button onClick={onClick}>START</Button>
+          <Button type="submit">START</Button>
+        </form>
       </Main>
     </div>
   )
@@ -48,10 +112,10 @@ const InputBox = styled.div`
   row-gap: 15px;
   align-self: flex-end;
 `
-const Button = styled.div`
+const Button = styled.button`
   width: 155px;
   height: 65px;
-  margin-top: 60px;
+  margin: 60px auto 0;
   border-radius: 15px;
   background: #004c2f;
   display: flex;
