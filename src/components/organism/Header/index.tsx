@@ -1,7 +1,6 @@
-import React from 'react'
-import styled from '@emotion/styled'
 import HeaderImage from '@assets/image/header.png'
-import HeaderMobileImage from '@assets/image/header_m.png'
+import styled from '@emotion/styled'
+import React from 'react'
 
 const Header: React.FC = () => {
   return (

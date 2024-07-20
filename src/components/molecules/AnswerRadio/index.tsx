@@ -1,6 +1,5 @@
 import { RadioButton } from '@/components/atoms'
-import styled from '@emotion/styled'
-import { ToggleButtonGroupProps, ToggleButtonGroup } from '@mui/material'
+import { ToggleButtonGroup, ToggleButtonGroupProps } from '@mui/material'
 import { v4 as uuidv4 } from 'uuid'
 
 interface IAnswer {

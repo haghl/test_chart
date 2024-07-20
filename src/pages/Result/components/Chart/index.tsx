@@ -14,7 +14,7 @@ const ChartComponent: React.FC = () => {
     beforeDraw: (chart: any) => {
       const {
         ctx,
-        chartArea: { top, bottom, left, right },
+        chartArea: { left, right },
         scales: { y },
       } = chart
       ctx.save()
