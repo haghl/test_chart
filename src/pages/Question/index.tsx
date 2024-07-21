@@ -63,9 +63,10 @@ const QuestionPage = () => {
     if (currentPage < pagedQuestions.length - 1) {
       navigate(`/question?page=${currentPage + 2}`)
       window.scrollTo(0, 0)
-      console.log('currentQuestions', questionList)
+      console.log('currentQuestions', currentQuestions)
     } else {
       const scores = calculateScores()
+
       mutate(scores)
     }
   }

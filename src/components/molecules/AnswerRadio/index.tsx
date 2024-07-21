@@ -14,11 +14,11 @@ const AnswerRadio: React.FC<IProps> = ({ ...rest }) => {
   const answerList: IAnswer[] = [
     {
       label: '매우 그렇다',
-      value: '1',
+      value: '5',
     },
     {
       label: '그렇다',
-      value: '2',
+      value: '4',
     },
     {
       label: '보통이다',
@@ -26,11 +26,11 @@ const AnswerRadio: React.FC<IProps> = ({ ...rest }) => {
     },
     {
       label: '그렇지 않다',
-      value: '4',
+      value: '2',
     },
     {
       label: '매우 그렇지 않다',
-      value: '5',
+      value: '1',
     },
   ]
 
