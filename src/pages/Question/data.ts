@@ -80,7 +80,7 @@ const questions: IQuestion[] = [
   { index: 77, type: 1, value: null, question: '나는 다른 사람들의 신임을 얻을 수 있다.' },
   { index: 78, type: 9, value: null, question: '사람들이 하는 일은 각자의 몫이며 나와 상관없는 일이다.' },
   { index: 79, type: 1, value: null, question: '나는 조화로움을 추구하는 평화주의자이다.' },
-  { index: 80, type: 8, value: null, question: '나는 정의감이 강하고 근면하다.' },
+  { index: 80, type: 9, value: null, question: '나는 정의감이 강하고 근면하다.' },
   { index: 81, type: 1, value: null, question: '나는 주로 나의 양심과 이성에 따른다.' },
 ]
 

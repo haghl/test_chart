@@ -142,7 +142,7 @@ const ChartComponent: React.FC<IProps> = ({ scoreData }) => {
           <div>성격유형</div>
           <ChartBottomItem>
             {chartData.map((type) => {
-              return <ChartBottomDiv key={`name_${type}`}>{`${type.number}.[${type.type}]`}</ChartBottomDiv>
+              return <ChartBottomDiv key={`name_${type}`}>{`${type.number} [${type.type}]`}</ChartBottomDiv>
             })}
           </ChartBottomItem>
         </ChartBottomItems>
