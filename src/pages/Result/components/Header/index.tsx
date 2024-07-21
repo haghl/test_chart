@@ -1,27 +1,22 @@
 import React from 'react'
 import styled from '@emotion/styled'
 import Character from '@assets/image/result_people.png'
+import { IAnswer } from '@/types'
 
 interface IProps {
-  type: number
+  type: IAnswer
 }
 const Header: React.FC<IProps> = ({ type }) => {
   return (
     <HeaderWrap>
-      <ResultType>{type}</ResultType>
+      <ResultType>{type.number}</ResultType>
       <HeaderContainer>
         <TypeTextBox>
           <TypeTitleBox>
-            <TypeTitle>배려자</TypeTitle>
-            <TypeSubTitle>공감능력 · 헌신</TypeSubTitle>
+            <TypeTitle>{type.name}</TypeTitle>
+            <TypeSubTitle>{type.subName}</TypeSubTitle>
           </TypeTitleBox>
-          <TypeDescription>
-            1번줄입니다1번줄입니다1번줄입니다1번줄입니다1번줄입니다
-            <br />
-            1번줄입니다1번줄입니다1번줄입니다1번줄입니다1번줄입니다
-            <br />
-            1번줄입니다1번줄입니다1번줄입니다1번줄입니다1번줄입니다
-          </TypeDescription>
+          <TypeDescription>{type.headerText}</TypeDescription>
         </TypeTextBox>
         <CharacterImage src={Character} alt="캐릭터" />
       </HeaderContainer>

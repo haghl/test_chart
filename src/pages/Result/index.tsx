@@ -1,31 +1,61 @@
+import { Kmpt } from '@/apis/question'
+import { IResult, IScore } from '@/types'
+import PyramidImage from '@assets/image/pyramid.png'
+import PyramidImageMobile from '@assets/image/pyramidMobile.png'
 import styled from '@emotion/styled'
-import React, { useState } from 'react'
+import { useMediaQuery } from '@mui/material'
+import { useSuspenseQuery } from '@tanstack/react-query'
+import React, { useEffect, useState } from 'react'
 import { Header } from './components'
 import ChartComponent from './components/Chart'
 import Description from './components/Description'
-import PyramidImage from '@assets/image/pyramid.png'
-import PyramidImageMobile from '@assets/image/pyramidMobile.png'
 import TypeBox from './components/TypeBox'
-import { IAnswer } from '@/types'
-import { useMediaQuery } from '@mui/material'
-import { useSuspenseQuery } from '@tanstack/react-query'
 
 const ResultPage: React.FC = () => {
   const isMobile = useMediaQuery('(max-width:420px)')
   const [active, setActive] = useState(1)
-  const dummyArr: IAnswer[] = Array(9).fill(dummy)
-  const {} = useSuspenseQuery({
-    queryKey: [''],
+  const { data: score } = useSuspenseQuery({
+    queryKey: ['getKmpt'],
+    queryFn: async () => {
+      const response = await Kmpt.getKmpt()
+
+      return response
+    },
+    select: (response) => {
+      const scores = sessionStorage.getItem('scores')
+      const parseScores: IScore[] = scores ? JSON.parse(scores) : []
+      const res: IResult[] = response.map((answer) => {
+        const score: IResult = { ...answer, score: 0 }
+        const myScore = parseScores.find((score) => score.testTypeId === answer.number)
+        if (myScore) {
+          score.score = myScore.number
+        }
+        return score
+      })
+
+      const hightType = res.reduce((max, current) => {
+        return current.score > max.score ? current : max
+      }, res[0])
+
+      return { hight: hightType, data: res }
+    },
   })
+
+  useEffect(() => {
+    if (score?.hight) {
+      setActive(score.hight.number)
+    }
+  }, [score.hight])
+
   return (
     <>
-      <Header type={2} />
+      <Header type={score.hight} />
       <Body>
-        <ChartComponent />
+        <ChartComponent scoreData={score.data} />
         <Description />
         <Pyramid src={isMobile ? PyramidImageMobile : PyramidImage} />
         <TypeWrap>
-          {dummyArr.map((data, index) => {
+          {score.data.map((data, index) => {
             return (
               <TypeBox
                 key={index}

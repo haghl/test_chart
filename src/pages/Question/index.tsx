@@ -3,8 +3,10 @@ import { Header } from '@/components/organism'
 import styled from '@emotion/styled'
 import questions from './data'
 import { useEffect, useState } from 'react'
-import { IQuestion } from '@/types'
+import { IQuestion, IScore } from '@/types'
 import { useLocation, useNavigate } from 'react-router-dom'
+import { useMutation } from '@tanstack/react-query'
+import { Kmpt } from '@/apis/question'
 
 const QuestionPage = () => {
   const location = useLocation()
@@ -15,6 +17,20 @@ const QuestionPage = () => {
   const params = new URLSearchParams(location.search)
   const currentPage = parseInt(params.get('page') || '1', 10) - 1
   const itemsPerPage = 10
+
+  const { mutate } = useMutation({
+    mutationFn: (scores: IScore[]) => {
+      const memberId = sessionStorage.getItem('memberId') ?? ''
+      return Kmpt.saveScore(Number(memberId), { scores })
+    },
+    onSuccess: (response) => {
+      sessionStorage.setItem('scores', JSON.stringify(response))
+      navigate('/result')
+    },
+    onError: (e: any) => {
+      console.log('message:', e.message)
+    },
+  })
 
   useEffect(() => {
     const totalPages = Math.ceil(questionList.length / itemsPerPage)
@@ -35,9 +51,8 @@ const QuestionPage = () => {
     setPagedQuestions(newPagedQuestions)
   }, [])
 
-  const handleNext = () => {
+  const handleNext = async () => {
     const currentQuestions = pagedQuestions[currentPage]
-
     // 유효성 검사: 답변이 없는 문항이 있는지 확인
     const unansweredQuestions = currentQuestions.filter((q) => !q.value)
     if (unansweredQuestions.length > 0) {
@@ -51,9 +66,7 @@ const QuestionPage = () => {
       console.log('currentQuestions', questionList)
     } else {
       const scores = calculateScores()
-      console.log('calculateScores', scores)
-
-      navigate('/result')
+      mutate(scores)
     }
   }
 
@@ -73,7 +86,10 @@ const QuestionPage = () => {
       }
     })
 
-    const scores = Array.from(scoreMap.entries()).map(([type, value]) => ({ type, value }))
+    const scores = Array.from(scoreMap.entries()).map(([type, value]) => ({
+      testTypeId: type,
+      number: value,
+    }))
 
     return scores
   }

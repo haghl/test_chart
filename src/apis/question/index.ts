@@ -1,5 +1,6 @@
-import { IKmptMember, IMemberScore } from '@/types'
+import { IAnswer, IKmptMember, IScore } from '@/types'
 import request from '@/utils/network'
+import { ResponseType } from '@/utils/network/type'
 
 export const Kmpt = {
   createMember: async (requestData: IKmptMember) => {
@@ -15,15 +16,28 @@ export const Kmpt = {
       throw error
     }
   },
-  saveScore: async (requestData: IMemberScore) => {
+  saveScore: async (id: number, requestData: { scores: IScore[] }) => {
     try {
-      const { data } = await request<IMemberScore, any>({
-        method: 'post',
-        url: `/kmpt/save-score`,
+      const { data } = await request<{ scores: IScore[] }, { scores: { scores: IScore[] } }>({
+        method: 'put',
+        url: `/kmpt/${id}/scores`,
         requestBody: requestData,
       })
 
-      return data
+      return data.scores.scores
+    } catch (error) {
+      throw error
+    }
+  },
+
+  getKmpt: async () => {
+    try {
+      const { data } = await request<null, ResponseType<{ content: IAnswer[] }>>({
+        method: 'get',
+        url: `/kmpt`,
+      })
+
+      return data.content.content
     } catch (error) {
       throw error
     }

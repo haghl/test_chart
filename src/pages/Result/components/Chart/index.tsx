@@ -1,13 +1,19 @@
+import { IResult } from '@/types'
 import styled from '@emotion/styled'
 import { BarElement, CategoryScale, Chart as ChartJS, ChartOptions, Filler, Legend, LinearScale, LineElement, PointElement, Title, Tooltip } from 'chart.js'
 import 'chart.js/auto'
 import React from 'react'
 import { Bar } from 'react-chartjs-2'
 
+interface IProps {
+  scoreData: IResult[]
+}
+
 // 커스텀 플러그인 작성
 ChartJS.register(CategoryScale, LinearScale, BarElement, PointElement, LineElement, Title, Tooltip, Legend, Filler)
-const ChartComponent: React.FC = () => {
-  const typeList = ['5 [관찰형]', '6 [충성형]', '7 [낙천형]', '4 [예술형]', '3 [성취형]', '2 [조력형]', '1 [개혁형]', '9 [중재형]', '8 [도전형]']
+const ChartComponent: React.FC<IProps> = ({ scoreData }) => {
+  const typeList = [5, 6, 7, 4, 3, 2, 1, 9, 8]
+  const chartData = typeList.map((type) => scoreData[type - 1])
 
   const backgroundColorPlugin = {
     id: 'backgroundColorPlugin',
@@ -27,11 +33,11 @@ const ChartComponent: React.FC = () => {
   }
 
   const data: any = {
-    labels: typeList,
+    labels: chartData.map((type) => type.type),
     datasets: [
       {
         type: 'line',
-        data: [20, 25, 20, 15, 13, 25, 30, 20, 10],
+        data: chartData.map((type) => type.score),
         borderColor: '#004C2F',
         backgroundColor: '#004C2F',
         pointBackgroundColor: '#004C2F',
@@ -127,16 +133,16 @@ const ChartComponent: React.FC = () => {
         <ChartBottomItems>
           <div>점수</div>
           <ChartBottomItem>
-            {typeList.map((type) => {
-              return <ChartBottomDiv key={`score_${type}`}></ChartBottomDiv>
+            {chartData.map((type) => {
+              return <ChartBottomDiv key={`score_${type.name}`}>{type.score}</ChartBottomDiv>
             })}
           </ChartBottomItem>
         </ChartBottomItems>
         <ChartBottomItems>
           <div>성격유형</div>
           <ChartBottomItem>
-            {typeList.map((type) => {
-              return <ChartBottomDiv key={`name_${type}`}>{type}</ChartBottomDiv>
+            {chartData.map((type) => {
+              return <ChartBottomDiv key={`name_${type}`}>{`${type.number}.[${type.type}]`}</ChartBottomDiv>
             })}
           </ChartBottomItem>
         </ChartBottomItems>

@@ -26,10 +26,10 @@ export interface IKmptMember {
 }
 
 export interface IScore {
-  score: number
+  number: number
   testTypeId: number
 }
-export interface IMemberScore {
-  userId: number
-  scores: IScore[]
+
+export interface IResult extends IAnswer {
+  score: number
 }

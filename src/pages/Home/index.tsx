@@ -24,7 +24,7 @@ const HomePage = () => {
       return Kmpt.createMember(request)
     },
     onSuccess: (response) => {
-      sessionStorage.setItem('memberId', response?.id?.toString() || '')
+      sessionStorage.setItem('memberId', response?.toString() || '')
       navigate('/question')
     },
     onError: (e: any) => {

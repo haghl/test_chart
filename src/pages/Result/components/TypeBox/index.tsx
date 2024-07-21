@@ -63,7 +63,7 @@ const TypeMid = styled.div<{ active: boolean }>`
 const TypeBottom = styled.div<{ active: boolean }>`
   height: 400px;
   margin-top: 15px;
-  padding: 50px;
+  padding: 50px 30px;
   display: flex;
   justify-content: center;
   align-items: center;
