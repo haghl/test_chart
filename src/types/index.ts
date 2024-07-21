@@ -24,3 +24,12 @@ export interface IKmptMember {
   age: number
   phoneNumber: string
 }
+
+export interface IScore {
+  score: number
+  testTypeId: number
+}
+export interface IMemberScore {
+  userId: number
+  scores: IScore[]
+}

@@ -1,4 +1,4 @@
-import { IKmptMember } from '@/types'
+import { IKmptMember, IMemberScore } from '@/types'
 import request from '@/utils/network'
 
 export const Kmpt = {
@@ -7,6 +7,19 @@ export const Kmpt = {
       const { data } = await request<IKmptMember, IKmptMember>({
         method: 'post',
         url: `/kmpt/member`,
+        requestBody: requestData,
+      })
+
+      return data
+    } catch (error) {
+      throw error
+    }
+  },
+  saveScore: async (requestData: IMemberScore) => {
+    try {
+      const { data } = await request<IMemberScore, any>({
+        method: 'post',
+        url: `/kmpt/save-score`,
         requestBody: requestData,
       })
 

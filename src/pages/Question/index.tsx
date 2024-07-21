@@ -36,12 +36,46 @@ const QuestionPage = () => {
   }, [])
 
   const handleNext = () => {
+    const currentQuestions = pagedQuestions[currentPage]
+
+    // 유효성 검사: 답변이 없는 문항이 있는지 확인
+    const unansweredQuestions = currentQuestions.filter((q) => !q.value)
+    if (unansweredQuestions.length > 0) {
+      alert('모든 문항에 답변을 입력해주세요.')
+      return
+    }
+
     if (currentPage < pagedQuestions.length - 1) {
       navigate(`/question?page=${currentPage + 2}`)
       window.scrollTo(0, 0)
+      console.log('currentQuestions', questionList)
     } else {
+      const scores = calculateScores()
+      console.log('calculateScores', scores)
+
       navigate('/result')
     }
+  }
+
+  const calculateScores = () => {
+    const scoreMap = new Map()
+
+    questionList.forEach((question) => {
+      const { type, value } = question
+      if (value) {
+        const numericValue = parseInt(value.toString(), 10) // value가 숫자 문자열이라고 가정
+
+        if (scoreMap.has(type)) {
+          scoreMap.set(type, scoreMap.get(type) + numericValue)
+        } else {
+          scoreMap.set(type, numericValue)
+        }
+      }
+    })
+
+    const scores = Array.from(scoreMap.entries()).map(([type, value]) => ({ type, value }))
+
+    return scores
   }
 
   return (
