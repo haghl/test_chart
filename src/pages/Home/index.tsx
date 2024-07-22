@@ -96,7 +96,7 @@ const HomePage = () => {
     }
   }
 
-  const handleResult = async (e: React.FormEvent) => {
+  const handleResult = async () => {
     const isValidation = validate()
     if (isValidation) {
       const phoneNum = formatPhoneNumber(phoneNumber)
