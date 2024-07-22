@@ -1,6 +1,6 @@
 import { IAnswer, IKmptMember, IQuestion } from '@/types'
 import request from '@/utils/network'
-import { RequestParams, ResponseType } from '@/utils/network/type'
+import { ResponseType } from '@/utils/network/type'
 
 export const Kmpt = {
   createMember: async (requestData: IKmptMember) => {
