@@ -26,6 +26,8 @@
     "react-error-boundary": "^4.0.13",
     "react-responsive": "^10.0.0",
     "react-router-dom": "^6.24.1",
+    "react-to-pdf": "^1.0.1",
+    "swiper": "^11.1.5",
     "uuid": "^10.0.0",
     "zustand": "^4.5.4"
   },

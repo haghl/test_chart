@@ -1,12 +1,11 @@
-import { Question } from '@/components/organism'
-import { Header } from '@/components/organism'
-import styled from '@emotion/styled'
-import questions from './data'
-import { useEffect, useState } from 'react'
-import { IQuestion, IScore } from '@/types'
-import { useLocation, useNavigate } from 'react-router-dom'
-import { useMutation } from '@tanstack/react-query'
 import { Kmpt } from '@/apis/question'
+import { Header, Question } from '@/components/organism'
+import { IQuestion } from '@/types'
+import styled from '@emotion/styled'
+import { useMutation } from '@tanstack/react-query'
+import { useEffect, useState } from 'react'
+import { useLocation, useNavigate } from 'react-router-dom'
+import questions from './data'
 
 const QuestionPage = () => {
   const location = useLocation()
@@ -19,13 +18,13 @@ const QuestionPage = () => {
   const itemsPerPage = 10
 
   const { mutate } = useMutation({
-    mutationFn: (scores: IScore[]) => {
+    mutationFn: (scores: IQuestion[]) => {
       const memberId = sessionStorage.getItem('memberId') ?? ''
       return Kmpt.saveScore(Number(memberId), { scores })
     },
     onSuccess: (response) => {
       sessionStorage.setItem('scores', JSON.stringify(response))
-      navigate('/result')
+      navigate('/myData')
     },
     onError: (e: any) => {
       console.log('message:', e.message)
@@ -65,34 +64,8 @@ const QuestionPage = () => {
       window.scrollTo(0, 0)
       console.log('currentQuestions', currentQuestions)
     } else {
-      const scores = calculateScores()
-
-      mutate(scores)
+      mutate(questionList)
     }
-  }
-
-  const calculateScores = () => {
-    const scoreMap = new Map()
-
-    questionList.forEach((question) => {
-      const { type, value } = question
-      if (value) {
-        const numericValue = parseInt(value.toString(), 10) // value가 숫자 문자열이라고 가정
-
-        if (scoreMap.has(type)) {
-          scoreMap.set(type, scoreMap.get(type) + numericValue)
-        } else {
-          scoreMap.set(type, numericValue)
-        }
-      }
-    })
-
-    const scores = Array.from(scoreMap.entries()).map(([type, value]) => ({
-      testTypeId: type,
-      number: value,
-    }))
-
-    return scores
   }
 
   return (

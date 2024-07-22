@@ -6,11 +6,14 @@ interface IProps {
   index: number
   question: string
   value: number | null
-  onChange: (value: number | null) => void
+  onChange?: (value: number | null) => void
+  disable?: boolean
 }
-const Question: React.FC<IProps> = ({ index, value, question, onChange }) => {
+const Question: React.FC<IProps> = ({ index, value, question, disable, onChange }) => {
   const handleChangeAnswer: (event: React.MouseEvent<HTMLElement>, value: any) => void = (_, value) => {
-    onChange(value)
+    if (onChange) {
+      onChange(value)
+    }
   }
 
   return (
@@ -19,7 +22,7 @@ const Question: React.FC<IProps> = ({ index, value, question, onChange }) => {
         {index.toString().padStart(2, '0')}. {question}
       </QuestionTitle>
 
-      <AnswerRadio value={value} onChange={handleChangeAnswer} />
+      <AnswerRadio value={value} onChange={handleChangeAnswer} disabled={disable} />
     </QuestionBox>
   )
 }

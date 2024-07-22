@@ -5,6 +5,18 @@ export interface IQuestion {
   question: string
 }
 
+export interface IKmptMember {
+  id?: number
+  name: string
+  age: number
+  phoneNumber: string
+  scores?: IQuestion[] | IScore[]
+}
+
+export interface IScore {
+  number: number
+  testTypeId: number
+}
 export interface IAnswer {
   categoryId: number
   categoryName: string // 머리 가슴 배
@@ -18,18 +30,6 @@ export interface IAnswer {
   character: string // 특징
   recomend: string // 추천
 }
-export interface IKmptMember {
-  id?: number
-  name: string
-  age: number
-  phoneNumber: string
-}
-
-export interface IScore {
-  number: number
-  testTypeId: number
-}
-
 export interface IResult extends IAnswer {
   score: number
 }

@@ -1,6 +1,6 @@
-import { IAnswer, IKmptMember, IScore } from '@/types'
+import { IAnswer, IKmptMember, IQuestion } from '@/types'
 import request from '@/utils/network'
-import { ResponseType } from '@/utils/network/type'
+import { RequestParams, ResponseType } from '@/utils/network/type'
 
 export const Kmpt = {
   createMember: async (requestData: IKmptMember) => {
@@ -16,15 +16,41 @@ export const Kmpt = {
       throw error
     }
   },
-  saveScore: async (id: number, requestData: { scores: IScore[] }) => {
+  saveScore: async (id: number, requestData: { scores: IQuestion[] }) => {
     try {
-      const { data } = await request<{ scores: IScore[] }, { scores: { scores: IScore[] } }>({
+      const { data } = await request<{ scores: IQuestion[] }, { scores: { scores: IQuestion[] } }>({
         method: 'put',
         url: `/kmpt/${id}/scores`,
         requestBody: requestData,
       })
 
       return data.scores.scores
+    } catch (error) {
+      throw error
+    }
+  },
+
+  getMember: async (phoneNumber: string) => {
+    try {
+      const { data } = await request<{ phoneNumber: string }, ResponseType<{ id: number }>>({
+        method: 'get',
+        url: `/kmpt/member`,
+        requestParams: { phoneNumber },
+      })
+
+      return data
+    } catch (error) {
+      throw error
+    }
+  },
+  getMemberScores: async (id: number) => {
+    try {
+      const { data } = await request<null, ResponseType<IKmptMember>>({
+        method: 'get',
+        url: `/kmpt/${id}/scores`,
+      })
+
+      return data
     } catch (error) {
       throw error
     }

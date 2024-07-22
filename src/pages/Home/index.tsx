@@ -32,6 +32,24 @@ const HomePage = () => {
     },
   })
 
+  const { mutate: resultKmpt } = useMutation({
+    mutationFn: (phoneNum: string) => {
+      return Kmpt.getMember(phoneNum)
+    },
+    onSuccess: (response) => {
+      if (response.content.id) {
+        sessionStorage.setItem('memberId', response.content.id?.toString() || '')
+        navigate('/myData')
+      } else {
+        alert('먼저는 테스트를 진행해주세요')
+      }
+    },
+    onError: (e: any) => {
+      console.log('message:', e.message)
+      alert('먼저는 테스트를 진행해주세요')
+    },
+  })
+
   const validate = () => {
     const newErrors: Partial<ErrorData> = {}
 
@@ -74,7 +92,18 @@ const HomePage = () => {
       mutate(formattedData)
       // Do something with the formatted form data
     } else {
-      console.log('Form data is invalid:', errors)
+      console.log('전부 입력해주세요:', errors)
+    }
+  }
+
+  const handleResult = async (e: React.FormEvent) => {
+    const isValidation = validate()
+    if (isValidation) {
+      const phoneNum = formatPhoneNumber(phoneNumber)
+      resultKmpt(phoneNum)
+      // Do something with the formatted form data
+    } else {
+      console.log('전부 입력해주세요:', errors)
     }
   }
 
@@ -88,8 +117,12 @@ const HomePage = () => {
             <Input htmlForId="age" style={{ borderColor: errors.name ? 'red' : '#004C2F' }} label="Age" width={320} value={age} onChange={(e) => setAge(e.target.value)} />
             <Input htmlForId="phone" style={{ borderColor: errors.name ? 'red' : '#004C2F' }} label="Phone" width={320} value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)} />
           </InputBox>
-
-          <Button type="submit">START</Button>
+          <ButtonWrap>
+            <Button type="submit">START</Button>
+            <Button type="button" onClick={handleResult}>
+              결과보기
+            </Button>
+          </ButtonWrap>
         </form>
       </Main>
     </div>
@@ -112,10 +145,16 @@ const InputBox = styled.div`
   row-gap: 15px;
   align-self: flex-end;
 `
+const ButtonWrap = styled.div`
+  display: flex;
+  margin-top: 60px;
+  column-gap: 20px;
+  justify-content: center;
+  align-self: center;
+`
 const Button = styled.button`
   width: 155px;
   height: 65px;
-  margin: 60px auto 0;
   border-radius: 15px;
   background: #004c2f;
   display: flex;
