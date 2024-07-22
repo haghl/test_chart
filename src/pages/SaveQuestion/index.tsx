@@ -7,7 +7,6 @@ import styled from '@emotion/styled'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { Swiper, SwiperSlide } from 'swiper/react'
 
-import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import 'swiper/css'
 
