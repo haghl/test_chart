@@ -18,10 +18,9 @@ const SaveQuestion = () => {
     let scores: IQuestion[]
     let calculScores: IScore[]
     const isBool = dataScores.length > 0 && (dataScores[0] as IScore).testTypeId !== undefined
+
     if (isBool) {
-      const jsonScore = sessionStorage.getItem('scores')
-      scores = jsonScore ? JSON.parse(jsonScore) : []
-      calculScores = calculateScores(scores)
+      calculScores = dataScores as IScore[]
     } else {
       scores = data.content.scores as IQuestion[]
       calculScores = calculateScores(scores)
@@ -32,6 +31,7 @@ const SaveQuestion = () => {
 
   const { data } = useSuspenseQuery({
     queryKey: ['getResultScore', id],
+    gcTime: 0,
     queryFn: async () => {
       const parseId: number = JSON.parse(id!)
       const response = await Kmpt.getMemberScores(parseId)
@@ -41,13 +41,15 @@ const SaveQuestion = () => {
   })
 
   const { data: score } = useSuspenseQuery({
-    queryKey: ['getScoreLast'],
+    queryKey: ['getScoreLast', id],
+    gcTime: 0,
     queryFn: async () => {
       const response = await Kmpt.getKmpt()
       return response
     },
     select: (response) => {
       const calculScores = logicScore(data.content.scores!!)
+
       const res: IResult[] = response.map((answer) => {
         const score: IResult = { ...answer, score: 0 }
         const myScore = calculScores.find((score) => score.testTypeId === answer.number)
@@ -73,7 +75,6 @@ const SaveQuestion = () => {
   return (
     <Swiper
       onActiveIndexChange={(swiper) => {
-        console.log('swiper', swiper.activeIndex)
         if (swiper.activeIndex === 0) {
           window.scrollTo({ top: 0, behavior: 'smooth' })
         }
