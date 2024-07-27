@@ -20,11 +20,22 @@ const InputWrap = styled.div`
   align-items: center;
   justify-content: flex-end;
   column-gap: 25px;
+
+  @media (max-width: 420px) {
+    flex-direction: column;
+    row-gap: 10px;
+    align-items: flex-start;
+    justify-content: center;
+  }
 `
 const InputLabel = styled.label`
   font-size: 22px;
   font-weight: 500;
   color: #004c2f;
+
+  @media (max-width: 420px) {
+    font-size: 15px;
+  }
 `
 const InputEl = styled.input<{ width: number }>`
   width: ${({ width }) => width}px;
@@ -35,6 +46,12 @@ const InputEl = styled.input<{ width: number }>`
   font-size: 22px;
   &:focus-visible {
     outline-color: #004c2f;
+  }
+
+  @media (max-width: 420px) {
+    width: 100%;
+    height: 40px;
+    font-size: 15px;
   }
 `
 

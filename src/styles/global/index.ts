@@ -172,6 +172,9 @@ export const baseStyle = css`
     border-collapse: collapse;
     border-spacing: 0;
   }
+  input {
+    box-sizing: border-box;
+  }
   button {
     background: inherit;
     border: none;

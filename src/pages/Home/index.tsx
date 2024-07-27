@@ -1,5 +1,5 @@
 import { Kmpt } from '@/apis/question'
-import { Input } from '@/components/atoms'
+import { Button, Input } from '@/components/atoms'
 import { IKmptMember } from '@/types'
 import styled from '@emotion/styled'
 import { useMutation } from '@tanstack/react-query'
@@ -137,6 +137,10 @@ const Main = styled.div`
   @media (max-width: 1000px) {
     width: 100%;
     padding: 0 15px;
+    box-sizing: border-box;
+  }
+  @media (max-width: 420px) {
+    margin-top: 40px;
   }
 `
 const InputBox = styled.div`
@@ -144,6 +148,10 @@ const InputBox = styled.div`
   flex-direction: column;
   row-gap: 15px;
   align-self: flex-end;
+
+  @media (max-width: 420px) {
+    margin-top: 0;
+  }
 `
 const ButtonWrap = styled.div`
   display: flex;
@@ -151,19 +159,6 @@ const ButtonWrap = styled.div`
   column-gap: 20px;
   justify-content: center;
   align-self: center;
-`
-const Button = styled.button`
-  width: 155px;
-  height: 65px;
-  border-radius: 15px;
-  background: #004c2f;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  align-self: center;
-  font-size: 18px;
-  font-weight: bold;
-  color: #fff;
 `
 
 export default HomePage
