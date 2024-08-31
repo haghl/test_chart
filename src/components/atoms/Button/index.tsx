@@ -1,6 +1,11 @@
 import styled from '@emotion/styled'
+import { FC } from 'react'
 
-const Button = styled.button`
+const Button: FC<React.ButtonHTMLAttributes<HTMLButtonElement>> = ({ ...props }) => {
+  return <ButtonDiv {...props}>{props.children}</ButtonDiv>
+}
+
+const ButtonDiv = styled.button`
   width: 155px;
   height: 65px;
   border-radius: 15px;
@@ -12,7 +17,7 @@ const Button = styled.button`
   font-weight: bold;
   color: #fff;
 
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     width: 100px;
     height: 50px;
     font-size: 15px;

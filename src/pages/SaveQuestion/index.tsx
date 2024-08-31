@@ -70,10 +70,12 @@ const SaveQuestion = () => {
   const handleClickReset = () => {
     sessionStorage.clear()
     navigate('/', { replace: true })
+    window.location.reload() // 페이지를 새로고침하여 모든 상태 초기화
   }
 
   return (
     <Swiper
+      autoHeight
       onActiveIndexChange={(swiper) => {
         if (swiper.activeIndex === 0) {
           window.scrollTo({ top: 0, behavior: 'smooth' })

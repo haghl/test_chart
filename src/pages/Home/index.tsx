@@ -139,7 +139,7 @@ const Main = styled.div`
     padding: 0 15px;
     box-sizing: border-box;
   }
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     margin-top: 40px;
   }
 `
@@ -149,7 +149,7 @@ const InputBox = styled.div`
   row-gap: 15px;
   align-self: flex-end;
 
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     margin-top: 0;
   }
 `

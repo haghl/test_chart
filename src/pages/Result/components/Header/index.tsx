@@ -48,7 +48,7 @@ const ResultType = styled.p`
     top: 16px;
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     font-size: 50px;
     top: 8px;
   }
@@ -63,7 +63,7 @@ const HeaderContainer = styled.div`
     padding-top: 50px;
     padding-bottom: 50px;
   }
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     padding-top: 35px;
     padding-bottom: 30px;
   }
@@ -86,7 +86,7 @@ const TypeTitleBox = styled.div`
     margin-bottom: 20px;
     column-gap: 20px;
   }
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     margin-bottom: 15px;
     column-gap: 13px;
   }
@@ -98,7 +98,7 @@ const TypeTitle = styled.p`
   @media (max-width: 1000px) {
     font-size: 50px;
   }
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     font-size: 18px;
   }
 `
@@ -107,7 +107,7 @@ const TypeSubTitle = styled.p`
   @media (max-width: 1000px) {
     font-size: 25px;
   }
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     font-size: 11px;
   }
 `
@@ -119,7 +119,7 @@ const TypeDescription = styled.p`
     line-height: 25px;
     font-size: 18px;
   }
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     line-height: 12px;
     font-size: 8px;
   }
@@ -133,7 +133,7 @@ const CharacterImage = styled.img`
     width: 300px;
     right: 15px;
   }
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     width: 180px;
   }
 `

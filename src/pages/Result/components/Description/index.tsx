@@ -32,7 +32,7 @@ const DescriptionWrap = styled.div`
   margin-top: 42px;
   display: flex;
   justify-content: space-between;
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     width: 90%;
     margin: 33px auto 0;
     flex-direction: column;
@@ -46,7 +46,7 @@ const DescriptionTitle = styled.p`
   font-size: 18px;
   font-weight: bold;
   color: #004c2f;
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     margin-bottom: 10px;
     font-size: 12px;
   }
@@ -55,7 +55,7 @@ const DescriptionText = styled.p`
   line-height: 18px;
   font-weight: 500;
   font-size: 14px;
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     line-height: 14px;
     font-size: 10px;
   }

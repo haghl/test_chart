@@ -21,7 +21,7 @@ const InputWrap = styled.div`
   justify-content: flex-end;
   column-gap: 25px;
 
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     flex-direction: column;
     row-gap: 10px;
     align-items: flex-start;
@@ -33,7 +33,7 @@ const InputLabel = styled.label`
   font-weight: 500;
   color: #004c2f;
 
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     font-size: 15px;
   }
 `
@@ -48,7 +48,7 @@ const InputEl = styled.input<{ width: number }>`
     outline-color: #004c2f;
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     width: 100%;
     height: 40px;
     font-size: 15px;

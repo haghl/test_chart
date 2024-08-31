@@ -27,7 +27,7 @@ const TypeBox: React.FC<IProps> = ({ data, active, onClick }) => {
 const TypeWrap = styled.div`
   flex: 1 1 calc(33.333% - 40px);
   cursor: pointer;
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     flex-basis: calc(33.333% - 10px);
   }
 `
@@ -36,7 +36,7 @@ const TypeTop = styled.p<{ active: boolean }>`
   font-size: 37px;
   color: ${(prop) => (prop.active ? '#004C2F' : '#B7B7B7')};
 
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     font-size: 13px;
   }
 `
@@ -55,7 +55,7 @@ const TypeMid = styled.div<{ active: boolean }>`
     margin-top: 45px;
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     margin-top: 25px;
     height: 105px;
   }
@@ -76,7 +76,7 @@ const TypeBottom = styled.div<{ active: boolean }>`
     padding: 30px 20px;
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     height: 150px;
     padding: 25px 10px;
   }
@@ -86,7 +86,7 @@ const TypeText = styled.p`
   font-weight: 500;
   font-size: 22px;
 
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     line-height: 13px;
     font-size: 10px;
   }

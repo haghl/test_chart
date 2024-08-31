@@ -2,7 +2,7 @@ import styled from '@emotion/styled'
 import { useMediaQuery } from '@mui/material'
 
 const Header = () => {
-  const isMobile = useMediaQuery('(max-width: 420px)')
+  const isMobile = useMediaQuery('(max-width: 450px)')
 
   return (
     <HeaderWrap>
@@ -28,7 +28,7 @@ const HeaderWrap = styled.div`
   display: flex;
   align-items: center;
 
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     height: 220px;
   }
 `
@@ -43,7 +43,7 @@ const HeaderLeft = styled.div`
   background: #004c2f;
   color: #fff;
 
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     width: 80%;
     padding-left: 30px;
   }
@@ -52,7 +52,7 @@ const BigText = styled.p`
   font-weight: bold;
   font-size: 70px;
 
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     font-size: 40px;
   }
 `
@@ -67,7 +67,7 @@ const SubText = styled.p`
   font-weight: lighter;
   font-size: 28px;
 
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     font-size: 18px;
   }
 `
@@ -94,7 +94,7 @@ const HeaderRight = styled.div`
   height: 90%;
   background: #e4efe4;
 
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     width: 20%;
   }
 `

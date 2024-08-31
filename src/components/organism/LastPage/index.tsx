@@ -18,7 +18,7 @@ interface IProps {
 }
 
 const Last = ({ scores }: IProps) => {
-  const isMobile = useMediaQuery('(max-width:420px)')
+  const isMobile = useMediaQuery('(max-width:450px)')
   const [active, setActive] = useState(1)
 
   useEffect(() => {
@@ -63,7 +63,7 @@ const Body = styled.div`
     padding: 0 15px 50px;
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     margin-top: 40px;
   }
 `
@@ -73,7 +73,7 @@ const Pyramid = styled.img`
   @media (max-width: 1000px) {
     margin-top: 70px;
   }
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     width: 90%;
     margin: 55px auto 0;
     display: block;
@@ -90,7 +90,7 @@ const TypeWrap = styled.div`
   @media (max-width: 1000px) {
     row-gap: 50px;
   }
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     gap: 30px 10px;
   }
 `

@@ -171,7 +171,7 @@ const ChartContainer = styled.div`
   @media (max-width: 1000px) {
     height: 350px;
   }
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     height: 215px;
   }
 `
@@ -182,7 +182,7 @@ const ChartTop = styled.div`
   @media (max-width: 1000px) {
     height: 350px;
   }
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     height: 215px;
   }
 `
@@ -202,7 +202,7 @@ const ChartLeft = styled.div`
     height: 350px;
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     width: 32px;
     height: 215px;
   }
@@ -218,7 +218,7 @@ const ChartLeftP = styled.p`
   @media (max-width: 1000px) {
     font-size: 13px;
   }
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     font-size: 10px;
   }
 `
@@ -231,7 +231,7 @@ const ChartBottom = styled.div`
     font-size: 13px;
   }
 
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     font-size: 10px;
   }
 `
@@ -248,14 +248,14 @@ const ChartBottomItems = styled.div`
     @media (max-width: 1000px) {
       width: 76.5px;
     }
-    @media (max-width: 420px) {
+    @media (max-width: 450px) {
       width: 58.5px;
       min-width: 56px;
     }
   }
   & div ~ div {
     border-left: 2px solid #004c2f;
-    @media (max-width: 420px) {
+    @media (max-width: 450px) {
       border-width: 1px;
     }
   }
@@ -263,7 +263,7 @@ const ChartBottomItems = styled.div`
   @media (max-width: 1000px) {
     padding-right: 5.5px;
   }
-  @media (max-width: 420px) {
+  @media (max-width: 450px) {
     height: 20px;
   }
 `
